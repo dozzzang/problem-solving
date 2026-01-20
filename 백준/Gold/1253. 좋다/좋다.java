@@ -1,40 +1,48 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
-public class Main {
-    public static void main(String[] args) throws NumberFormatException, IOException {
+public class Main{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         int N = Integer.parseInt(br.readLine());
-        int Result = 0;
-        long A[] = new long[N];
-        StringTokenizer stringTokenizer = new StringTokenizer(br.readLine());
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        long[] A = new long[N];
         for (int i = 0; i < N; i++) {
-            A[i] = Long.parseLong(stringTokenizer.nextToken());
+            A[i] = Long.parseLong(st.nextToken());
         }
         Arrays.sort(A);
+
+        int cnt = 0;
         for (int k = 0; k < N; k++) {
-            long find = A[k];
+            long target = A[k];
             int i = 0;
             int j = N - 1;
             while (i < j) {
-                if (i == k) {
-                    i++;
-                    continue;
-                } else if (j == k) {
+                if (A[i] + A[j] > target) {
                     j--;
-                    continue;
                 }
-                if (A[i] + A[j] == find) {
-                    Result++;
-                    break;
-                } else if (A[i] + A[j] < find) {
+                else if (A[i] + A[j] < target) {
                     i++;
-                } else {
-                    j--;
+                }
+                else {
+                    if (i != k && j != k) {
+                        cnt++;
+                        break;
+                    } else if (i == k) {
+                        i++;
+                    } else if (j == k) {
+                        j--;
+                    }
                 }
             }
         }
-        System.out.println(Result);
+        System.out.println(cnt);
         br.close();
     }
-    }
+}
