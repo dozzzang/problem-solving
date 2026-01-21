@@ -17,7 +17,7 @@ public class Main{
            arr[i] = Integer.parseInt(st.nextToken());
        }
         Stack<Integer> stack = new Stack();
-       StringBuffer sb = new StringBuffer();
+       StringBuilder sb = new StringBuilder();
        int num = 1;
        boolean result = true;
        for(int i = 0; i < arr.length; i++) {
